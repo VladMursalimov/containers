@@ -17,6 +17,7 @@ List<T>::List(size_type n) : head_(nullptr), tail_(nullptr) {
 template <typename T>
 List<T>::List(std::initializer_list<value_type> const& items)
     : head_(nullptr), tail_(nullptr) {
+  size_ = items.size();
   for (const auto& item : items) {
     if (head_ == nullptr) {
       head_ = new Node(item);
@@ -129,6 +130,16 @@ typename List<T>::iterator List<T>::begin() {
 template <typename T>
 typename List<T>::iterator List<T>::end() {
   return iterator(nullptr);
+}
+
+template <typename T>
+typename List<T>::const_iterator List<T>::begin() const {
+  return const_iterator(head_);
+}
+
+template <typename T>
+typename List<T>::const_iterator List<T>::end() const {
+  return const_iterator(nullptr);
 }
 
 template <typename T>
@@ -333,5 +344,87 @@ void List<T>::merge(List& other) {
 
 template <typename T>
 void List<T>::splice(const_iterator pos, List& other) {
-  
+  if (this == &other) {
+    throw std::invalid_argument("Cannot splice the list with itself");
+  }
+  if (!other.empty()) {
+    for (iterator it = other.begin(); it != other.end(); ++it) {
+      this->insert(pos, *it);
+    }
+    (&other)->clear();
+  }
+}
+
+template <typename T>
+void List<T>::reverse() {
+  Node* current = head_;
+  Node* temp = nullptr;
+
+  while (current != nullptr) {
+    temp = current->prev_;
+    current->prev_ = current->next_;
+    current->next_ = temp;
+
+    current = current->prev_;
+  }
+
+  if (temp != nullptr) {
+    temp = head_;
+    head_ = tail_;
+    tail_ = temp;
+  }
+}
+
+template <typename T>
+void List<T>::unique() {
+  if (head_ == nullptr) return;
+  Node* current = head_->next_;
+  while (current != nullptr) {
+    if (current->value_ == current->prev_->value_) {
+      Node* duplicate = current;
+      current->prev_->next_ = current->next_;
+      if (current->next_ != nullptr) {
+        current->next_->prev_ = current->prev_;
+      } else {
+        tail_ = current->prev_;
+      }
+      current = current->next_;
+      delete duplicate;
+      --size_;
+    } else {
+      current = current->next_;
+    }
+  }
+}
+
+template <typename T>
+void List<T>::sort() {
+  if (size_>1) {
+    quickSort(head_, tail_);
+  }
+}
+
+template <typename T>
+void List<T>::quickSort(Node* low, Node* high) {
+  if (low != nullptr && high != nullptr && low != high && low != high->next_) {
+    Node* pivot = partition(low, high);
+    quickSort(low, pivot->prev_);
+    quickSort(pivot->next_, high);
+  }
+}
+
+template <typename T>
+typename List<T>::Node* List<T>::partition(Node* low, Node* high) {
+  T pivotValue = high->value_;
+  Node* i = low->prev_;
+
+  for (Node* j = low; j != high; j = j->next_) {
+    if (j->value_ <= pivotValue) {
+      i = (i == nullptr) ? low : i->next_;
+      std::swap(i->value_, j->value_);
+    }
+  }
+  i = (i == nullptr) ? low : i->next_;
+  std::swap(i->value_, high->value_);
+  return i;
 }

@@ -111,23 +111,20 @@ class List {
 
   template <typename value_type>
   class ListConstIterator : public ListIterator<T> {
-  public:
-    ListConstIterator(typename List<T>::Node* node) : ListIterator<T>(node) {}
-
-    const T& operator*() const {
-      return ListIterator<T>::operator*();
-    }
-
-    const T* operator->() const {
-      return ListIterator<T>::operator->();
-    }
+   public:
+    ListConstIterator(ListIterator<T> other) : ListIterator<T>(other) {}
+    const T& operator*() { return ListIterator<T>::operator*(); }
   };
+
 
   /// List Iterators
   using iterator = ListIterator<T>;
   using const_iterator = ListConstIterator<T>;
   iterator begin();
   iterator end();
+  const_iterator begin() const;
+  const_iterator end() const;
+
 
   /// List Modifiers
   void clear();  // Очищает содержимое списка
@@ -146,6 +143,8 @@ class List {
   void reverse();  // Изменяет порядок элементов списка на обратный
   void unique();   // Удаляет последовательные повторяющиеся элементы
   void sort();     // Сортирует элементы списка
+  void quickSort(Node* low, Node* high);
+  Node* partition(Node* low, Node* high);
 };
 
 template class List<int>;     // Example instantiation
