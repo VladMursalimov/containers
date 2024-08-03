@@ -1,0 +1,3 @@
+"C:\Program Files\JetBrains\CLion 2024.1.4\bin\cmake\win\x64\bin\cmake.exe" -E rm -f CMakeFiles\s21_containers.dir/objects.a
+C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\ar.exe qc CMakeFiles\s21_containers.dir/objects.a @CMakeFiles\s21_containers.dir\objects1.rsp
+C:\PROGRA~1\JETBRA~1\CLION2~1.4\bin\mingw\bin\G__~1.EXE -g -Wl,--whole-archive CMakeFiles\s21_containers.dir/objects.a -Wl,--no-whole-archive -o s21_containers.exe -Wl,--out-implib,libs21_containers.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\s21_containers.dir\linkLibs.rsp
