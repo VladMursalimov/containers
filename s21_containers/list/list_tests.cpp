@@ -23,7 +23,7 @@ TEST_F(ListTest, DefaultConstructor) {
 }
 
 TEST_F(ListTest, InitializerListConstructor) {
-    List<int> list{1, 2, 3};
+    List<int> list = {1, 2, 3};
     EXPECT_EQ(list.size(), 3);
     EXPECT_EQ(list.front(), 1);
     EXPECT_EQ(list.back(), 3);
@@ -120,7 +120,7 @@ TEST_F(ListTest, FrontBackException) {
     EXPECT_THROW(list.back(), std::out_of_range);
 }
 
-TEST_F(ListAdvancedTest, Splice) {
+TEST_F(ListTest, Splice) {
   List<int> list1{1, 2, 3};
   List<int> list2{4, 5, 6};
   auto it = list1.begin();
@@ -141,7 +141,7 @@ TEST_F(ListAdvancedTest, Splice) {
   EXPECT_EQ(*list1_it++, 3);
 }
 
-TEST_F(ListAdvancedTest, SpliceSelf) {
+TEST_F(ListTest, SpliceSelf) {
   List<int> list1{1, 2, 3};
   auto it = list1.begin();
   ++it; // Pointing to 2
@@ -149,7 +149,7 @@ TEST_F(ListAdvancedTest, SpliceSelf) {
   EXPECT_THROW(list1.splice(it, list1), std::invalid_argument);
 }
 
-TEST_F(ListAdvancedTest, Reverse) {
+TEST_F(ListTest, Reverse) {
   List<int> list1{1, 2, 3};
   list1.reverse();
 
@@ -160,7 +160,7 @@ TEST_F(ListAdvancedTest, Reverse) {
   EXPECT_EQ(*it++, 1);
 }
 
-TEST_F(ListAdvancedTest, Unique) {
+TEST_F(ListTest, Unique) {
   List<int> list1{1, 1, 2, 3, 3, 3, 4};
   list1.unique();
 
@@ -172,7 +172,7 @@ TEST_F(ListAdvancedTest, Unique) {
   EXPECT_EQ(*it++, 4);
 }
 
-TEST_F(ListAdvancedTest, Sort) {
+TEST_F(ListTest, Sort) {
   List<int> list1{4, 3, 1, 2};
   list1.sort();
 

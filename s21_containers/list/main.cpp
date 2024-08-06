@@ -4,9 +4,7 @@
 
 int main() {
   List<int> list1 = {3,1,1,2, 2, 3};
-  list1.sort();
-  list1.reverse();
-  list1.printList();
+  std::cout<<list1.front();
 
   return 0;
 }

@@ -145,10 +145,12 @@ typename List<T>::const_iterator List<T>::end() const {
 template <typename T>
 typename List<T>::size_type List<T>::size() {
   int c = 0;
-  while (head_ != nullptr) {
-    head_ = head_->next_;
+  Node* cur = head_;
+  while (cur != nullptr) {
+    cur = cur->next_;
     c++;
   }
+  delete cur;
   return c;
 }
 
