@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <iostream>
 
+namespace s21 {
 template <typename T>
 class List {
  public:
@@ -53,10 +54,10 @@ class List {
  public:
   template <typename value_type>
   class ListIterator {
-  private:
+   private:
     Node* current;
 
-  public:
+   public:
     using iterator_category = std::bidirectional_iterator_tag;
     using difference_type = std::ptrdiff_t;
     using pointer = T*;
@@ -66,13 +67,9 @@ class List {
 
     ListIterator(Node* node) : current(node) {}
 
-    reference operator*() const {
-      return current->value_;
-    }
+    reference operator*() const { return current->value_; }
 
-    pointer operator->() const {
-      return &(current->value_);
-    }
+    pointer operator->() const { return &(current->value_); }
 
     ListIterator& operator++() {
       current = current->next_;
@@ -104,9 +101,7 @@ class List {
       return current != other.current;
     }
 
-    Node* get_node() const {
-      return current;
-    }
+    Node* get_node() const { return current; }
   };
 
   template <typename value_type>
@@ -116,7 +111,6 @@ class List {
     const T& operator*() { return ListIterator<T>::operator*(); }
   };
 
-
   /// List Iterators
   using iterator = ListIterator<T>;
   using const_iterator = ListConstIterator<T>;
@@ -124,7 +118,6 @@ class List {
   iterator end();
   const_iterator begin() const;
   const_iterator end() const;
-
 
   /// List Modifiers
   void clear();  // Очищает содержимое списка
@@ -147,7 +140,9 @@ class List {
   Node* partition(Node* low, Node* high);
 };
 
-template class List<int>;     // Example instantiation
-template class List<double>;  // Example instantiation
-
+template class List<int>;
+template class List<double>;
+template class List<char>;
+template class List<float>;
+}  // namespace s21
 #endif

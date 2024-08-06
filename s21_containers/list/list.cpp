@@ -3,19 +3,19 @@
 #include <limits>
 
 template <typename T>
-List<T>::List() {
+s21::List<T>::List() {
   head_ = nullptr;
   tail_ = nullptr;
   size_ = 0;
 }
 
 template <typename T>
-List<T>::List(size_type n) : head_(nullptr), tail_(nullptr) {
+s21::List<T>::List(size_type n) : head_(nullptr), tail_(nullptr) {
   initialize(n);
 }
 
 template <typename T>
-List<T>::List(std::initializer_list<value_type> const& items)
+s21::List<T>::List(std::initializer_list<value_type> const& items)
     : head_(nullptr), tail_(nullptr) {
   size_ = items.size();
   for (const auto& item : items) {
@@ -31,12 +31,12 @@ List<T>::List(std::initializer_list<value_type> const& items)
 }
 
 template <typename T>
-List<T>::~List() {
+s21::List<T>::~List() {
   clear();
 }
 
 template <typename T>
-List<T>::List(const List& l) : head_(nullptr), tail_(nullptr) {
+s21::List<T>::List(const List& l) : head_(nullptr), tail_(nullptr) {
   Node* cur = l.head_;
   while (cur != nullptr) {
     push_back(cur->value_);
@@ -45,7 +45,7 @@ List<T>::List(const List& l) : head_(nullptr), tail_(nullptr) {
 }
 
 template <typename T>
-List<T>::List(List&& l) {
+s21::List<T>::List(List&& l) {
   head_ = l.head_;
   tail_ = l.tail_;
   size_ = l.size_;
@@ -55,7 +55,7 @@ List<T>::List(List&& l) {
 }
 
 template <typename T>
-typename List<T>::List& List<T>::operator=(List&& l) {
+typename s21::List<T>::List& s21::List<T>::operator=(List&& l) {
   if (this != &l) {
     while (head_ != nullptr) {
       Node* tmp = head_;
@@ -73,7 +73,7 @@ typename List<T>::List& List<T>::operator=(List&& l) {
 }
 
 template <typename T>
-typename List<T>::const_reference List<T>::front() {
+typename s21::List<T>::const_reference s21::List<T>::front() {
   if (head_ == nullptr) {
     throw std::out_of_range("List is empty");
   }
@@ -81,7 +81,7 @@ typename List<T>::const_reference List<T>::front() {
 }
 
 template <typename T>
-typename List<T>::const_reference List<T>::back() {
+typename s21::List<T>::const_reference s21::List<T>::back() {
   if (tail_ == nullptr) {
     throw std::out_of_range("List is empty");
   }
@@ -89,7 +89,7 @@ typename List<T>::const_reference List<T>::back() {
 }
 
 template <typename T>
-void List<T>::initialize(size_type n) {
+void s21::List<T>::initialize(size_type n) {
   size_ = n;
   for (size_type i = 0; i < n; ++i) {
     Node* newNode = new Node(0);
@@ -104,7 +104,7 @@ void List<T>::initialize(size_type n) {
 }
 
 template <typename T>
-void List<T>::printList() {
+void s21::List<T>::printList() {
   Node* i = head_;
   while (i != nullptr) {
     std::cout << i->value_ << " ";
@@ -114,7 +114,7 @@ void List<T>::printList() {
 }
 
 template <typename T>
-void List<T>::fillList() {
+void s21::List<T>::fillList() {
   Node* cur = head_;
   for (value_type i = 0; cur != nullptr; ++i) {
     cur->value_ = i;
@@ -123,27 +123,27 @@ void List<T>::fillList() {
 }
 
 template <typename T>
-typename List<T>::iterator List<T>::begin() {
+typename s21::List<T>::iterator s21::List<T>::begin() {
   return iterator(head_);
 }
 
 template <typename T>
-typename List<T>::iterator List<T>::end() {
+typename s21::List<T>::iterator s21::List<T>::end() {
   return iterator(nullptr);
 }
 
 template <typename T>
-typename List<T>::const_iterator List<T>::begin() const {
+typename s21::List<T>::const_iterator s21::List<T>::begin() const {
   return const_iterator(head_);
 }
 
 template <typename T>
-typename List<T>::const_iterator List<T>::end() const {
+typename s21::List<T>::const_iterator s21::List<T>::end() const {
   return const_iterator(nullptr);
 }
 
 template <typename T>
-typename List<T>::size_type List<T>::size() {
+typename s21::List<T>::size_type s21::List<T>::size() {
   int c = 0;
   Node* cur = head_;
   while (cur != nullptr) {
@@ -155,17 +155,17 @@ typename List<T>::size_type List<T>::size() {
 }
 
 template <typename T>
-bool List<T>::empty() {
+bool s21::List<T>::empty() {
   return size_ == 0;
 }
 
 template <typename T>
-typename List<T>::size_type List<T>::max_size() {
+typename s21::List<T>::size_type s21::List<T>::max_size() {
   return (std::numeric_limits<size_type>::max() / sizeof(Node) / 2);
 }
 
 template <typename T>
-void List<T>::clear() {
+void s21::List<T>::clear() {
   Node* current = head_;
   while (current != nullptr) {
     Node* next = current->next_;
@@ -178,7 +178,7 @@ void List<T>::clear() {
 }
 
 template <typename T>
-typename List<T>::iterator List<T>::insert(iterator pos,
+typename s21::List<T>::iterator s21::List<T>::insert(iterator pos,
                                            const_reference value) {
   Node* newNode = new Node(value);
   Node* current = pos.get_node();
@@ -206,7 +206,7 @@ typename List<T>::iterator List<T>::insert(iterator pos,
 }
 
 template <typename T>
-void List<T>::erase(iterator pos) {
+void s21::List<T>::erase(iterator pos) {
   Node* current = pos.get_node();
   if (current == nullptr) {
     throw std::out_of_range("Iterator does not point to a valid node");
@@ -236,7 +236,7 @@ void List<T>::erase(iterator pos) {
 }
 
 template <typename T>
-void List<T>::push_back(const_reference value) {
+void s21::List<T>::push_back(const_reference value) {
   size_++;
   if (head_ == nullptr) {
     head_ = new Node(value);
@@ -249,7 +249,7 @@ void List<T>::push_back(const_reference value) {
 }
 
 template <typename T>
-void List<T>::pop_back() {
+void s21::List<T>::pop_back() {
   if (tail_ == nullptr) {
     throw std::out_of_range("List is empty");
   }
@@ -265,7 +265,7 @@ void List<T>::pop_back() {
 }
 
 template <typename T>
-void List<T>::push_front(const_reference value) {
+void s21::List<T>::push_front(const_reference value) {
   Node* newNode = new Node(value);
   newNode->next_ = head_;
   if (head_ != nullptr) {
@@ -278,7 +278,7 @@ void List<T>::push_front(const_reference value) {
 }
 
 template <typename T>
-void List<T>::pop_front() {
+void s21::List<T>::pop_front() {
   if (head_ == nullptr) {
     throw std::out_of_range("List is empty");
   }
@@ -294,14 +294,14 @@ void List<T>::pop_front() {
 }
 
 template <typename T>
-void List<T>::swap(List& other) {
+void s21::List<T>::swap(List& other) {
   std::swap(head_, other.head_);
   std::swap(tail_, other.tail_);
   std::swap(size_, other.size_);
 }
 
 template <typename T>
-void List<T>::merge(List& other) {
+void s21::List<T>::merge(List& other) {
   if (this == &other) {
     throw std::invalid_argument("Cannot merge the list with itself");
   }
@@ -345,7 +345,7 @@ void List<T>::merge(List& other) {
 }
 
 template <typename T>
-void List<T>::splice(const_iterator pos, List& other) {
+void s21::List<T>::splice(const_iterator pos, List& other) {
   if (this == &other) {
     throw std::invalid_argument("Cannot splice the list with itself");
   }
@@ -358,7 +358,7 @@ void List<T>::splice(const_iterator pos, List& other) {
 }
 
 template <typename T>
-void List<T>::reverse() {
+void s21::List<T>::reverse() {
   Node* current = head_;
   Node* temp = nullptr;
 
@@ -378,7 +378,7 @@ void List<T>::reverse() {
 }
 
 template <typename T>
-void List<T>::unique() {
+void s21::List<T>::unique() {
   if (head_ == nullptr) return;
   Node* current = head_->next_;
   while (current != nullptr) {
@@ -400,14 +400,14 @@ void List<T>::unique() {
 }
 
 template <typename T>
-void List<T>::sort() {
+void s21::List<T>::sort() {
   if (size_>1) {
     quickSort(head_, tail_);
   }
 }
 
 template <typename T>
-void List<T>::quickSort(Node* low, Node* high) {
+void s21::List<T>::quickSort(Node* low, Node* high) {
   if (low != nullptr && high != nullptr && low != high && low != high->next_) {
     Node* pivot = partition(low, high);
     quickSort(low, pivot->prev_);
@@ -416,7 +416,7 @@ void List<T>::quickSort(Node* low, Node* high) {
 }
 
 template <typename T>
-typename List<T>::Node* List<T>::partition(Node* low, Node* high) {
+typename s21::List<T>::Node* s21::List<T>::partition(Node* low, Node* high) {
   T pivotValue = high->value_;
   Node* i = low->prev_;
 
