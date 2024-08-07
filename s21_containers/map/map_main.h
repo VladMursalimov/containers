@@ -1,9 +1,6 @@
 #ifndef MAP_H
 #define MAP_H
 
-namespace s21
-{
+namespace s21 {}
 
-}
-
-#endif //MAP_H
+#endif  // MAP_H

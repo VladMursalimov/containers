@@ -1,11 +1,11 @@
 #ifndef QUEUE_H
 #define QUEUE_H
 
-#include "list/list.h"
+#include "../list/list.h"
 namespace s21 {
 template <typename T, typename Container = s21::List<T>>
 class Queue {
-public:
+ public:
   using value_type = typename Container::value_type;
   using reference = typename Container::reference;
   using const_reference = typename Container::const_reference;

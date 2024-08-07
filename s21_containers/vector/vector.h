@@ -67,15 +67,14 @@ class Vector {
 
   void add_memory(size_type size, bool flag);
   size_type add_memory_size(size_type size, bool flag);
-
 };
 
 template <class T>
 class VectorIterator {
-public:
+ public:
   using value_type = T;
-  using pointer = T*;
-  using reference = T&;
+  using pointer = T *;
+  using reference = T &;
 
   VectorIterator() : ptr_(nullptr) {}
   explicit VectorIterator(pointer ptr) : ptr_(ptr) {}
@@ -83,12 +82,12 @@ public:
   reference operator*() const { return *ptr_; }
   pointer operator->() const { return ptr_; }
 
-  VectorIterator& operator++() {
+  VectorIterator &operator++() {
     ++ptr_;
     return *this;
   }
 
-  VectorIterator& operator--() {
+  VectorIterator &operator--() {
     --ptr_;
     return *this;
   }
@@ -113,18 +112,21 @@ public:
     return VectorIterator(ptr_ - value);
   }
 
-  bool operator==(const VectorIterator &other) const { return ptr_ == other.ptr_; }
+  bool operator==(const VectorIterator &other) const {
+    return ptr_ == other.ptr_;
+  }
 
-  bool operator!=(const VectorIterator &other) const { return ptr_ != other.ptr_; }
+  bool operator!=(const VectorIterator &other) const {
+    return ptr_ != other.ptr_;
+  }
 
   operator VectorConstIterator<T>() const {
     return VectorConstIterator<T>(ptr_);
   }
 
-private:
+ private:
   pointer ptr_;
 };
-
 
 template <class T>
 class VectorConstIterator {

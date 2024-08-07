@@ -124,18 +124,18 @@ class List {
   iterator insert(iterator pos, const T& value);
   // Вставляет элемент в указанную позицию и возвращает итератор, указывающий на
   // новый элемент
-  void erase(iterator pos);         // Удаляет элемент по указанной позиции
-  void push_back(const T& value);   // Добавляет элемент в конец списка
-  void pop_back();                  // Удаляет последний элемент списка
+  void erase(iterator pos);  // Удаляет элемент по указанной позиции
+  void push_back(const T& value);  // Добавляет элемент в конец списка
+  void pop_back();  // Удаляет последний элемент списка
   void push_front(const T& value);  // Добавляет элемент в начало списка
-  void pop_front();                 // Удаляет первый элемент списка
-  void swap(List& other);   // Обменивает содержимое списка с другим списком
+  void pop_front();  // Удаляет первый элемент списка
+  void swap(List& other);  // Обменивает содержимое списка с другим списком
   void merge(List& other);  // Объединяет два отсортированных списка
   void splice(const_iterator pos, List& other);  // Переносит элементы из списка
                                                  // other, начиная с позиции pos
   void reverse();  // Изменяет порядок элементов списка на обратный
-  void unique();   // Удаляет последовательные повторяющиеся элементы
-  void sort();     // Сортирует элементы списка
+  void unique();  // Удаляет последовательные повторяющиеся элементы
+  void sort();    // Сортирует элементы списка
   void quickSort(Node* low, Node* high);
   Node* partition(Node* low, Node* high);
 };

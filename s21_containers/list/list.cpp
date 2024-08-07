@@ -179,7 +179,7 @@ void s21::List<T>::clear() {
 
 template <typename T>
 typename s21::List<T>::iterator s21::List<T>::insert(iterator pos,
-                                           const_reference value) {
+                                                     const_reference value) {
   Node* newNode = new Node(value);
   Node* current = pos.get_node();
 
@@ -401,7 +401,7 @@ void s21::List<T>::unique() {
 
 template <typename T>
 void s21::List<T>::sort() {
-  if (size_>1) {
+  if (size_ > 1) {
     quickSort(head_, tail_);
   }
 }

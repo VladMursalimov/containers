@@ -1,6 +1,6 @@
 #ifndef STACK_H
 #define STACK_H
-#include "list/list.h"
+#include "../list/list.h"
 namespace s21 {
 template <typename T, typename Container = s21::List<T>>
 class Stack {

@@ -20,8 +20,9 @@ LIST_SRC_FILES = $(wildcard $(LIST_DIR)/*.cpp)
 QUEUE_SRC_FILES = $(wildcard $(QUEUE_DIR)/*.cpp)
 STACK_SRC_FILES = $(wildcard $(STACK_DIR)/*.cpp)
 VECTOR_SRC_FILES = $(wildcard $(VECTOR_DIR)/*.cpp)
+TEST_SRC_FILE = tests.cpp
 
-SRC_FILES = $(LIST_SRC_FILES) $(QUEUE_SRC_FILES) $(STACK_SRC_FILES) $(VECTOR_SRC_FILES)
+SRC_FILES = $(LIST_SRC_FILES) $(QUEUE_SRC_FILES) $(STACK_SRC_FILES) $(VECTOR_SRC_FILES) $(TEST_SRC_FILE)
 
 # Объектные файлы
 OBJ_FILES = $(SRC_FILES:%.cpp=$(OBJ_DIR)/%.o)
@@ -29,7 +30,7 @@ OBJ_FILES = $(SRC_FILES:%.cpp=$(OBJ_DIR)/%.o)
 # Тестовый исполняемый файл
 TEST_EXEC = test_exec
 
-# Основной исполняемый файл
+# Основной исполняемый файл (если есть)
 MAIN_EXEC = main_exec
 
 # Цели makefile
@@ -54,7 +55,7 @@ test: $(TEST_EXEC)
 	./$(TEST_EXEC)
 
 $(TEST_EXEC): $(OBJ_FILES)
-	$(CXX) $(CXXFLAGS) -lgtest -lgtest_main -pthread $^ -o $@
+	$(CXX) $(CXXFLAGS) $^ -lgtest -lgtest_main -pthread -o $@
 
 # Очистка
 clean:
@@ -62,6 +63,9 @@ clean:
 
 # Основная программа (при необходимости)
 main: $(MAIN_EXEC)
+
+style:
+	clang-format -n */*.cpp */*.h --style=Google
 
 $(MAIN_EXEC): $(OBJ_FILES)
 	$(CXX) $(CXXFLAGS) $^ -o $@

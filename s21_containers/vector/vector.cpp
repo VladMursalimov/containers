@@ -1,4 +1,4 @@
-#include "vector/vector.h"
+#include "vector.h"
 
 #include <iostream>
 #include <stdexcept>
@@ -66,7 +66,7 @@ Vector<T> &Vector<T>::operator=(Vector &&v) {
 
 template <class T>
 typename Vector<T>::reference Vector<T>::at(size_type pos) {
-  if (pos >= size_ || pos < 0) {
+  if (pos >= size_) {
     throw std::out_of_range("Index out of range");
   }
   return container_[pos];
@@ -196,7 +196,7 @@ typename Vector<T>::iterator Vector<T>::insert(iterator pos,
                                                const_reference value) {
   size_type cur_pos = &(*pos) - container_;
 
-  if (cur_pos < 0 || cur_pos > size_) {
+  if (cur_pos > size_) {
     throw std::out_of_range("Index out of range");
   }
   if (size_ + 1 > capacity_) {
@@ -214,7 +214,7 @@ typename Vector<T>::iterator Vector<T>::insert(iterator pos,
 template <class T>
 void Vector<T>::erase(iterator pos) {
   size_type cur_pos = &(*pos) - container_;
-  if (cur_pos < 0 || cur_pos > size_) {
+  if (cur_pos > size_) {
     throw std::out_of_range("Erase error: Index out of range");
   }
   if (pos == end() - 1) {
