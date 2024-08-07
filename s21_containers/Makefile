@@ -1,6 +1,6 @@
 # Компилятор и флаги
 CXX = g++
-CXXFLAGS = -std=c++11 -Wall -Wextra -Ilist
+CXXFLAGS = -std=c++17 -Wall -Wextra -Ilist -Iqueue -Istack -Ivector
 
 # Путь к библиотеке и объектным файлам
 LIB_DIR = lib
@@ -8,10 +8,28 @@ OBJ_DIR = obj
 
 # Имена файлов
 LIB_NAME = containers.a
-SRC_DIR = list
-SRC_FILES = $(SRC_DIR)/list.cpp $(SRC_DIR)/list_tests.cpp $(SRC_DIR)/main.cpp
-OBJ_FILES = $(SRC_FILES:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
+
+# Директории с исходными файлами
+LIST_DIR = list
+QUEUE_DIR = queue
+STACK_DIR = stack
+VECTOR_DIR = vector
+
+# Исходные файлы
+LIST_SRC_FILES = $(wildcard $(LIST_DIR)/*.cpp)
+QUEUE_SRC_FILES = $(wildcard $(QUEUE_DIR)/*.cpp)
+STACK_SRC_FILES = $(wildcard $(STACK_DIR)/*.cpp)
+VECTOR_SRC_FILES = $(wildcard $(VECTOR_DIR)/*.cpp)
+
+SRC_FILES = $(LIST_SRC_FILES) $(QUEUE_SRC_FILES) $(STACK_SRC_FILES) $(VECTOR_SRC_FILES)
+
+# Объектные файлы
+OBJ_FILES = $(SRC_FILES:%.cpp=$(OBJ_DIR)/%.o)
+
+# Тестовый исполняемый файл
 TEST_EXEC = test_exec
+
+# Основной исполняемый файл
 MAIN_EXEC = main_exec
 
 # Цели makefile
@@ -19,43 +37,31 @@ MAIN_EXEC = main_exec
 
 all: clean build test
 
-# Стадия build - компиляция библиотеки
+# Сборка библиотеки и всех объектных файлов
 build: $(LIB_DIR)/$(LIB_NAME)
 
-$(LIB_DIR)/$(LIB_NAME): $(OBJ_DIR)/list.o
+$(LIB_DIR)/$(LIB_NAME): $(OBJ_FILES)
 	@mkdir -p $(LIB_DIR)
 	ar rcs $@ $^
 
-$(OBJ_DIR)/list.o: $(SRC_DIR)/list.cpp $(SRC_DIR)/list.h
-	@mkdir -p $(OBJ_DIR)
+# Сборка объектных файлов
+$(OBJ_DIR)/%.o: %.cpp
+	@mkdir -p $(@D)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Стадия test - компиляция и запуск тестов
+# Тестирование
 test: $(TEST_EXEC)
 	./$(TEST_EXEC)
 
-$(TEST_EXEC): $(OBJ_DIR)/list_tests.o $(LIB_DIR)/$(LIB_NAME)
-	$(CXX) $(CXXFLAGS) $^ -lgtest -lgtest_main -pthread -o $@
+$(TEST_EXEC): $(OBJ_FILES)
+	$(CXX) $(CXXFLAGS) -lgtest -lgtest_main -pthread $^ -o $@
 
-$(OBJ_DIR)/list_tests.o: $(SRC_DIR)/list_tests.cpp $(SRC_DIR)/list.h
-	@mkdir -p $(OBJ_DIR)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
-# Стадия main - компиляция и запуск main.cpp
-main: $(MAIN_EXEC)
-	./$(MAIN_EXEC)
-
-$(MAIN_EXEC): $(OBJ_DIR)/main.o $(LIB_DIR)/$(LIB_NAME)
-	$(CXX) $(CXXFLAGS) $^ -o $@
-
-$(OBJ_DIR)/main.o: $(SRC_DIR)/main.cpp $(SRC_DIR)/list.h
-	@mkdir -p $(OBJ_DIR)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
-# Стадия style - форматирование кода
-style:
-	clang-format -i $(SRC_DIR)/*.cpp $(SRC_DIR)/*.h
-
-# Очистка скомпилированных файлов
+# Очистка
 clean:
 	rm -rf $(OBJ_DIR) $(LIB_DIR) $(TEST_EXEC) $(MAIN_EXEC)
+
+# Основная программа (при необходимости)
+main: $(MAIN_EXEC)
+
+$(MAIN_EXEC): $(OBJ_FILES)
+	$(CXX) $(CXXFLAGS) $^ -o $@
