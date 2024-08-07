@@ -16,11 +16,11 @@ class Stack {
  public:
   Stack() : cont() {}
   Stack(std::initializer_list<value_type> const &items) : cont(items) {}
-  Stack(const Stack &q) : cont(q.cont) {}
-  Stack(Stack &&q) noexcept : cont(std::move(q.cont)) {}
+  Stack(const Stack &s) : cont(s.cont) {}
+  Stack(Stack &&s) noexcept : cont(std::move(s.cont)) {}
   ~Stack(){};
-  Stack &operator=(Stack &&q) noexcept {
-    this->cont = std::move(q.cont);
+  Stack &operator=(Stack &&s) noexcept {
+    this->cont = std::move(s.cont);
     return *this;
   }
 
