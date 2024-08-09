@@ -1,26 +1,41 @@
-#include <stack>
-#include <vector>
-
+#include "TreeRB/TreeRB.h"
 #include "list/list.h"
-#include "queue/queue.h"
-#include "stack/stack.h"
-#include "vector/vector.h"
 
 int main() {
-  s21::Vector<int> v = {1,2,3};
-  s21::VectorIterator<int> it = v.end();
-  it = v.insert(it, 5);
-  v.print_vector();
+  s21::TreeRB<int> tree;
 
-  v.erase(it);
-  v.push_back(878);
-  v.pop_back();
-  v.print_vector();
+  // Inserting elements into the tree
+  tree.insert(10);
+  tree.insert(20);
+  tree.insert(30);
+  tree.insert(40);
+  tree.insert(50);
+  tree.insert(25);
+  tree.insert(10);
 
-  // std::vector<int> container{1, 2, 3};
-  // auto iter = container.end();
-  // container.insert(iter, 5);
-  // for (const auto& value : container)
-  //   std::cout << value << ' ';
+  // Performing traversals
+  std::cout << "Inorder traversal: ";
+  tree.inorder();
+
+  std::cout << "Preorder traversal: ";
+  tree.preorder();
+
+  std::cout << "Postorder traversal: ";
+  tree.postorder();
+
+  // Searching for an element
+  int searchKey = 10;
+  if (tree.search(searchKey)) {
+    std::cout << "Element " << searchKey << " found in the tree." << std::endl;
+  } else {
+    std::cout << "Element " << searchKey << " not found in the tree."
+              << std::endl;
+  }
+
+  // Deleting an element
+  tree.deleteValue(20);
+  std::cout << "Inorder traversal after deletion of 20: ";
+  tree.inorder();
+
   return 0;
 }
