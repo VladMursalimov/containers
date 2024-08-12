@@ -20,4 +20,5 @@ add_executable(s21_containers
         s21_containers/setMap/avlTree/s21_avl_tree.h
         s21_containers/setMap/set/s21_set.h
         s21_containers/setMap/set/s21_set.tpp
+        s21_containers/array/array.h
 )
